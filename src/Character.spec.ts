@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest"
 
 class Character {
-  private health = 1000
+  private static INITIAL_LEVEL = 1
+  private static INITIAL_HEALTH = 1000
+  private health = Character.INITIAL_HEALTH
 
   static spawn() {
     return new Character()
@@ -12,7 +14,7 @@ class Character {
   }
 
   hasLevel(level: number) {
-    return level === 1
+    return level === Character.INITIAL_LEVEL
   }
 
   isAlive() {
@@ -21,12 +23,13 @@ class Character {
 
   dealDamage(character: Character) {
     if (character.isDead()) return
-    character.health = character.health - 250
+    const damageAmount = 250
+    character.health = character.health - damageAmount
   }
 
   heal(character: Character) {
     if (character.isDead()) return
-    character.health = 1000
+    character.health = Character.INITIAL_HEALTH
   }
 
   private isDead() {
