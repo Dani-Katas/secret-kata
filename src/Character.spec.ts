@@ -2,11 +2,18 @@ import { describe, expect, it } from "vitest"
 
 class Character {
   private static INITIAL_LEVEL = 1
+
   private static INITIAL_HEALTH = 1000
   private health = Character.INITIAL_HEALTH
 
+  constructor(private level = Character.INITIAL_LEVEL) {}
+
   static spawn() {
     return new Character()
+  }
+
+  static spawnAt(level: number) {
+    return new Character(level)
   }
 
   hasHealth(health: number) {
@@ -21,11 +28,16 @@ class Character {
     return this.health > 0
   }
 
-  dealDamage(character: Character) {
-    if (character === this) throw new Error("A character cannot damage itself.")
-    if (character.isDead()) return
-    const damageAmount = 250
-    character.health = character.health - damageAmount
+  dealDamage(target: Character) {
+    if (target === this) throw new Error("A character cannot damage itself.")
+    if (target.isDead()) return
+
+    let damageAmount = 250
+    if (target.level === 6) {
+      damageAmount = 125
+    }
+
+    target.health = target.health - damageAmount
   }
 
   heal() {
@@ -126,6 +138,15 @@ describe("Character", () => {
     const reaper = Character.spawn()
 
     expect(() => reaper.dealDamage(reaper)).toThrowError("A character cannot damage itself.")
+  })
+
+  it("deals 50% less damage when target is 5 levels above", () => {
+    const reaper = Character.spawn()
+    const diva = Character.spawnAt(6)
+
+    reaper.dealDamage(diva)
+
+    expect(diva.hasHealth(875)).toBe(true)
   })
 })
 
