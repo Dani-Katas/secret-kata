@@ -3,6 +3,10 @@ import { describe, expect, it } from "vitest"
 class Character {
   private health = 1000
 
+  static spawn() {
+    return new Character()
+  }
+
   hasHealth(health: number) {
     return health === this.health
   }
@@ -28,38 +32,38 @@ class Character {
 
 describe("Character", () => {
   it("has 1000 of health when created", () => {
-    const character = new Character()
+    const character = Character.spawn()
 
     expect(character.hasHealth(1000)).toBe(true)
   })
 
   it("does not has 900 of health when created", () => {
-    const character = new Character()
+    const character = Character.spawn()
 
     expect(character.hasHealth(900)).toBe(false)
   })
 
   it("has level 1 when created", () => {
-    const character = new Character()
+    const character = Character.spawn()
 
     expect(character.hasLevel(1)).toBe(true)
   })
 
   it("does not have level 1 when created", () => {
-    const character = new Character()
+    const character = Character.spawn()
 
     expect(character.hasLevel(2)).toBe(false)
   })
 
   it("is alive when created", () => {
-    const character = new Character()
+    const character = Character.spawn()
 
     expect(character.isAlive()).toBe(true)
   })
 
   it("can deal damage", () => {
-    const reaper = new Character()
-    const diva = new Character()
+    const reaper = Character.spawn()
+    const diva = Character.spawn()
 
     reaper.dealDamage(diva)
 
@@ -67,8 +71,8 @@ describe("Character", () => {
   })
 
   it("health cannot go below 0", () => {
-    const reaper = new Character()
-    const diva = new Character()
+    const reaper = Character.spawn()
+    const diva = Character.spawn()
 
     reaper.dealDamage(diva)
     reaper.dealDamage(diva)
@@ -80,8 +84,8 @@ describe("Character", () => {
   })
 
   it("is dead when health is 0", () => {
-    const reaper = new Character()
-    const diva = new Character()
+    const reaper = Character.spawn()
+    const diva = Character.spawn()
 
     reaper.dealDamage(diva)
     reaper.dealDamage(diva)
@@ -93,9 +97,9 @@ describe("Character", () => {
   })
 
   it("character can heal", () => {
-    const reaper = new Character()
-    const diva = new Character()
-    const healer = new Character()
+    const reaper = Character.spawn()
+    const diva = Character.spawn()
+    const healer = Character.spawn()
 
     reaper.dealDamage(diva)
 
@@ -105,9 +109,9 @@ describe("Character", () => {
   })
 
   it("cannot revive dead characters", () => {
-    const reaper = new Character()
-    const diva = new Character()
-    const healer = new Character()
+    const reaper = Character.spawn()
+    const diva = Character.spawn()
+    const healer = Character.spawn()
 
     reaper.dealDamage(diva)
     reaper.dealDamage(diva)
