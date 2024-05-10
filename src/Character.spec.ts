@@ -36,6 +36,9 @@ class Character {
     if (target.level - this.level >= 5) {
       damageAmount = 125
     }
+    if (this.level - target.level >= 5) {
+      damageAmount = 250 + 125
+    }
 
     target.health = target.health - damageAmount
   }
@@ -156,6 +159,15 @@ describe("Character", () => {
     reaper.dealDamage(diva)
 
     expect(diva.hasHealth(750)).toBe(true)
+  })
+
+  it("deals 50% more damage when target is 5 levels below", () => {
+    const reaper = Character.spawnAt(6)
+    const diva = Character.spawn()
+
+    reaper.dealDamage(diva)
+
+    expect(diva.hasHealth(625)).toBe(true)
   })
 })
 
