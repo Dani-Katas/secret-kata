@@ -22,6 +22,7 @@ class Character {
   }
 
   dealDamage(character: Character) {
+    if (character === this) throw new Error("A character cannot damage itself.")
     if (character.isDead()) return
     const damageAmount = 250
     character.health = character.health - damageAmount
@@ -121,6 +122,12 @@ describe("Character", () => {
     healer.heal(diva)
 
     expect(diva.isAlive()).toBe(false)
+  })
+
+  it("cannot damage itself", () => {
+    const reaper = Character.spawn()
+
+    expect(() => reaper.dealDamage(reaper)).toThrowError("A character cannot damage itself.")
   })
 })
 
