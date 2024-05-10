@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest"
 
 class Character {
-  hasHealth(number: number) {
-    return number === 1000
+  hasHealth(health: number) {
+    return health === 1000
+  }
+
+  hasLevel(level: number) {
+    return level === 1
   }
 }
 
@@ -19,7 +23,17 @@ describe("Character", () => {
     expect(character.hasHealth(900)).toBe(false)
   })
 
-  it.todo("has level 1 when created")
+  it("has level 1 when created", () => {
+    const character = new Character()
+
+    expect(character.hasLevel(1)).toBe(true)
+  })
+
+  it("does not have level 1 when created", () => {
+    const character = new Character()
+
+    expect(character.hasLevel(2)).toBe(false)
+  })
 
   it.todo("is alive when created")
 })
