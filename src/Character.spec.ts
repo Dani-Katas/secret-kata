@@ -21,6 +21,7 @@ class Character {
   }
 
   heal(character: Character) {
+    if (!character.isAlive()) return
     character.health = 1000
   }
 }
@@ -101,5 +102,21 @@ describe("Character", () => {
     healer.heal(diva)
 
     expect(diva.hasHealth(1000)).toBe(true)
+  })
+
+  it("cannot revive dead characters", () => {
+    const reaper = new Character()
+    const diva = new Character()
+    const healer = new Character()
+
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+
+    healer.heal(diva)
+
+    expect(diva.isAlive()).toBe(false)
   })
 })
