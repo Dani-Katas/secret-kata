@@ -38,13 +38,22 @@ class Character {
   }
 
   private calculateDamageFor(target: Character) {
-    if (target.level - this.level >= 5) {
-      return 125
+    const baseAmount = 250
+    if (this.hasFiveLevelsOrLessThan(target)) {
+      return baseAmount - baseAmount / 2
     }
-    if (this.level - target.level >= 5) {
-      return 375
+    if (this.hasFiveLevelsOrMoreThan(target)) {
+      return baseAmount + baseAmount / 2
     }
-    return 250
+    return baseAmount
+  }
+
+  private hasFiveLevelsOrMoreThan(target: Character) {
+    return this.level - target.level >= 5
+  }
+
+  private hasFiveLevelsOrLessThan(target: Character) {
+    return target.level - this.level >= 5
   }
 
   heal() {
