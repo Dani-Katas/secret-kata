@@ -12,7 +12,7 @@ class Character {
   }
 
   isAlive() {
-    return true
+    return this.health > 0
   }
 
   dealDamage(character: Character) {
@@ -72,5 +72,17 @@ describe("Character", () => {
     reaper.dealDamage(diva)
 
     expect(diva.hasHealth(0)).toBe(true)
+  })
+  it("is dead when health is 0", () => {
+    const reaper = new Character()
+    const diva = new Character()
+
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+
+    expect(diva.isAlive()).toBe(false)
   })
 })
