@@ -20,13 +20,17 @@ class Character {
   }
 
   dealDamage(character: Character) {
-    if (character.health === 0) return
+    if (character.isDead()) return
     character.health = character.health - 250
   }
 
   heal(character: Character) {
-    if (!character.isAlive()) return
+    if (character.isDead()) return
     character.health = 1000
+  }
+
+  private isDead() {
+    return !this.isAlive()
   }
 }
 
