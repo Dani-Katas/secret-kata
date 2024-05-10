@@ -1,16 +1,22 @@
 import { describe, expect, it } from "vitest"
 
 class Character {
-  hasHealth(health: number) {
-    return health === 1000
-  }
+  private health = 1000
 
+  hasHealth(health: number) {
+    return health === this.health
+  }
 
   hasLevel(level: number) {
     return level === 1
   }
+
   isAlive() {
     return true
+  }
+
+  dealDamage(character: Character){
+    character.health = character.health - 250
   }
 }
 
@@ -43,5 +49,14 @@ describe("Character", () => {
     const character = new Character()
 
     expect(character.isAlive()).toBe(true)
+  })
+
+  it("can deal damage", () => {
+    const reaper = new Character()
+    const diva = new Character()
+
+    reaper.dealDamage(diva)
+
+    expect(diva.hasHealth(1000)).toBe(false)
   })
 })
