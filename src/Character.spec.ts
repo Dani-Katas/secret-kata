@@ -15,7 +15,8 @@ class Character {
     return true
   }
 
-  dealDamage(character: Character){
+  dealDamage(character: Character) {
+    if (character.health === 0) return
     character.health = character.health - 250
   }
 }
@@ -58,5 +59,18 @@ describe("Character", () => {
     reaper.dealDamage(diva)
 
     expect(diva.hasHealth(1000)).toBe(false)
+  })
+
+  it("health cannot go below 0", () => {
+    const reaper = new Character()
+    const diva = new Character()
+
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+    reaper.dealDamage(diva)
+
+    expect(diva.hasHealth(0)).toBe(true)
   })
 })
