@@ -28,9 +28,9 @@ class Character {
     character.health = character.health - damageAmount
   }
 
-  heal(character: Character) {
-    if (character.isDead()) return
-    character.health = Character.INITIAL_HEALTH
+  heal() {
+    if (this.isDead()) return
+    this.health = Character.INITIAL_HEALTH
   }
 
   private isDead() {
@@ -104,10 +104,9 @@ describe("Character", () => {
   it("character can heal", () => {
     const reaper = Character.spawn()
     const diva = Character.spawn()
-    const healer = Character.spawn()
     reaper.dealDamage(diva)
 
-    healer.heal(diva)
+    diva.heal()
 
     expect(diva.hasHealth(1000)).toBe(true)
   })
@@ -115,11 +114,10 @@ describe("Character", () => {
   it("cannot revive dead characters", () => {
     const reaper = Character.spawn()
     const diva = Character.spawn()
-    const healer = Character.spawn()
     kill(reaper, diva)
     reaper.dealDamage(diva)
 
-    healer.heal(diva)
+    diva.heal()
 
     expect(diva.isAlive()).toBe(false)
   })
