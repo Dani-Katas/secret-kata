@@ -5,8 +5,12 @@ class Character {
     return health === 1000
   }
 
+
   hasLevel(level: number) {
     return level === 1
+  }
+  isAlive() {
+    return true
   }
 }
 
@@ -35,5 +39,9 @@ describe("Character", () => {
     expect(character.hasLevel(2)).toBe(false)
   })
 
-  it.todo("is alive when created")
+  it("is alive when created", () => {
+    const character = new Character()
+
+    expect(character.isAlive()).toBe(true)
+  })
 })
