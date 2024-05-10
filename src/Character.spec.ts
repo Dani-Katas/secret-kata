@@ -32,15 +32,19 @@ class Character {
     if (target === this) throw new Error("A character cannot damage itself.")
     if (target.isDead()) return
 
-    let damageAmount = 250
-    if (target.level - this.level >= 5) {
-      damageAmount = 125
-    }
-    if (this.level - target.level >= 5) {
-      damageAmount = 250 + 125
-    }
+    let damageAmount = this.calculateDamageFor(target)
 
     target.health = target.health - damageAmount
+  }
+
+  private calculateDamageFor(target: Character) {
+    if (target.level - this.level >= 5) {
+      return 125
+    }
+    if (this.level - target.level >= 5) {
+      return 375
+    }
+    return 250
   }
 
   heal() {
