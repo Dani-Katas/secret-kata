@@ -94,10 +94,7 @@ describe("Character", () => {
     const reaper = Character.spawn()
     const diva = Character.spawn()
 
-    reaper.dealDamage(diva)
-    reaper.dealDamage(diva)
-    reaper.dealDamage(diva)
-    reaper.dealDamage(diva)
+    kill(reaper, diva)
     reaper.dealDamage(diva)
 
     expect(diva.isAlive()).toBe(false)
@@ -107,7 +104,6 @@ describe("Character", () => {
     const reaper = Character.spawn()
     const diva = Character.spawn()
     const healer = Character.spawn()
-
     reaper.dealDamage(diva)
 
     healer.heal(diva)
@@ -119,11 +115,7 @@ describe("Character", () => {
     const reaper = Character.spawn()
     const diva = Character.spawn()
     const healer = Character.spawn()
-
-    reaper.dealDamage(diva)
-    reaper.dealDamage(diva)
-    reaper.dealDamage(diva)
-    reaper.dealDamage(diva)
+    kill(reaper, diva)
     reaper.dealDamage(diva)
 
     healer.heal(diva)
@@ -131,3 +123,10 @@ describe("Character", () => {
     expect(diva.isAlive()).toBe(false)
   })
 })
+
+function kill(attacker: Character, injured: Character) {
+  attacker.dealDamage(injured)
+  attacker.dealDamage(injured)
+  attacker.dealDamage(injured)
+  attacker.dealDamage(injured)
+}
